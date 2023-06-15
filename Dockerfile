@@ -5,7 +5,8 @@
 FROM node:16-alpine
 
 # Install FFmpeg
-RUN apt-get update && apt-get install -y ffmpeg
+# RUN apt-get update && apt-get install -y ffmpeg
+RUN apk update && apk add ffmpeg
 
 # Set the working directory
 WORKDIR /app
@@ -20,7 +21,7 @@ RUN npm install
 COPY . .
 
 # Expose any necessary ports (if applicable)
-EXPOSE 3000
+EXPOSE 3000 5001
 
 # Start the application
 CMD [ "npm", "start" ]

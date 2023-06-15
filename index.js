@@ -3,10 +3,8 @@ const http = require('http');
 const WebSocketServer = require('ws').Server;
 const fs = require("fs");
 
-
-const PORT = process.env.PORT || 5001;
 const wss = new WebSocketServer({
-  port:PORT
+  port:5001
 });
 
 
@@ -110,10 +108,3 @@ wss.on('connection', (ws, req) => {
   });
   
 });
-
-
-
-
-
-  
-
