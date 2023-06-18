@@ -3,12 +3,25 @@ const http = require('http');
 const WebSocketServer = require('ws').Server;
 const fs = require("fs");
 
+
+
+const server = http.createServer();
+
+const PORT =3000
+
 const wss = new WebSocketServer({
   port:5001
 });
 
 
 wss.on('connection', (ws, req) => {
+  console.log(req.url.substring(1),"reqq")
+  const rtmpUrl =req.url.substring(1)
+
+ 
+  
+  // const rtmpUrl = decodeURIComponent(match[1]);
+  // console.log('Target RTMP URL:', rtmpUrl);
 
   const ffmpeg = child_process.spawn('ffmpeg', [
        
@@ -69,7 +82,7 @@ wss.on('connection', (ws, req) => {
   // 'flv',
 
 '-c:v', 'libx264', '-x264-params', 'keyint=60:no-scenecut=1' ,'-c:a', 'copy', '-f', 'flv',
-'rtmp://rtmp.livepeer.com/live/d40f-3nc3-sl74-ja7t'
+  `${rtmpUrl}`
 
    ])
 
@@ -107,4 +120,9 @@ wss.on('connection', (ws, req) => {
    
   });
   
+});
+
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
